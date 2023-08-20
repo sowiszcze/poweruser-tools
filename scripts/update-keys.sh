@@ -34,7 +34,7 @@ while true; do
 
 done
 
-curl -# -L https://github.com/$LOGIN.keys -o ~/.ssh/authorized_keys
+curl -# -L https://github.com/$LOGIN.keys -O ~/.ssh/authorized_keys
 EXIT_CODE=$?
 
 if (( EXIT_CODE == 0 )); then

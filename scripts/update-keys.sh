@@ -34,7 +34,17 @@ while true; do
 
 done
 
-curl -# -L https://github.com/$LOGIN.keys -O ~/.ssh/authorized_keys
+if [ ! -d "$HOME/.ssh" ]; then
+    echo "SSH directory does not exist, creating"
+    if ( ( mkdir ~/.ssh == 0 ) ); then
+        echo "Directory successfully created"
+    else
+        echo "Directory creation exited with exit code $?"
+        exit 2
+    fi
+fi
+
+curl -# -L https://github.com/$LOGIN.keys -o ~/.ssh/authorized_keys
 EXIT_CODE=$?
 
 if (( EXIT_CODE == 0 )); then

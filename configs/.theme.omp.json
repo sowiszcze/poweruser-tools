@@ -38,20 +38,20 @@
       "alignment": "left",
       "segments": [
         {
-          "background": "#0077c2",
-          "foreground": "#ffffff",
-          "leading_diamond": "\ue0b6",
+          "type": "shell",
           "style": "diamond",
-          "template": "\uf120 {{ .Name }} ",
-          "type": "shell"
+          "leading_diamond": "\ue0b6",
+          "foreground": "#ffffff",
+          "background": "#0077c2",
+          "template": "\uf120 {{ .Name }} "
         },
         {
-          "type": "text",
+          "type": "os",
           "style": "powerline",
           "powerline_symbol": "\ue0b0",
           "foreground": "#ffffff",
           "background": "#047e84",
-          "template": " {{ .HostName }} "
+          "template": " {{ if .WSL }}\uF17C@{{ end }}{{.Icon}} "
         },
         {
           "type": "session",
@@ -59,7 +59,7 @@
           "powerline_symbol": "\ue0b0",
           "foreground": "#ffffff",
           "background": "#9A348E",
-          "template": "{{ if .Root }} \ue315{{ end }} {{ .UserName }} "
+          "template": "{{ if .Root }} \ue315{{ end }} {{ .UserName }}@{{ .HostName }} "
         },
         {
           "type": "path",
@@ -95,29 +95,32 @@
           "powerline_symbol": "\ue0b0",
           "foreground": "#ffffff",
           "background": "#86BBD8",
-          "template": " \ue718 {{ if .PackageManagerIcon }}{{ .PackageManagerIcon }} {{ end }}{{ .Full }} "
+          "template": " \ue718 {{ if .PackageManagerIcon }}{{ .PackageManagerIcon }} {{ end }}{{ .Full }} ",
+          "properties": {
+            "fetch_package_manager": true
+          }
         },
         {
           "type": "time",
           "style": "powerline",
+          "powerline_symbol": "\ue0b0",
           "foreground": "#ffffff",
           "background": "#33658A",
-          "powerline_symbol": "\ue0b0",
           "template": " {{ .CurrentDate | date .Format }} ",
           "properties": {
-            "time_format": "02.04.06 15:04:02 CET"
+            "time_format": "2006-01-02 15:04:05 MST"
           }
         },
         {
-          "type": "exit",
+          "type": "status",
           "style": "diamond",
+          "trailing_diamond": "\ue0b0",
           "foreground": "#ffffff",
           "background": "#2e812e",
           "background_templates": [
-            "{{ if gt .Code 0 }}#812e2e{{ else }}#2e812e{{ end }}"
+            "{{ if .Error }}#812e2e{{ end }}"
           ],
-          "trailing_diamond": "\ue0b0",
-          "template": " {{ if gt .Code 0 }}\ufb8a {{ .Meaning }}{{ else }}\uf004{{ end }} ",
+          "template": " {{ if .Error }}\ufb8a {{ .Meaning }}{{ else }}\uf004{{ end }} ",
           "properties": {
             "always_enabled": true
           }

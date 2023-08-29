@@ -21,7 +21,7 @@
           "powerline_symbol": "\ue0b0",
           "foreground": "#ffffff",
           "background": "#047e84",
-          "template": " {{ if .WSL }}\uf17c@{{ end }}{{.Icon}} "
+          "template": " {{.Icon}}{{ if .WSL }} @ \ue62a{{ end }} "
         },
         {
           "type": "session",
@@ -44,14 +44,6 @@
             "home_icon": "\uf7db",
             "style": "agnoster"
           }
-        },
-        {
-          "type": "docker",
-          "style": "powerline",
-          "powerline_symbol": "\ue0b0",
-          "foreground": "#000000",
-          "background": "#0B59E7",
-          "template": " \uf308 {{ .Context }} "
         },
         {
           "type": "dotnet",

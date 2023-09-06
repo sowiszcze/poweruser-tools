@@ -6,6 +6,10 @@ Some of them may make no sense at all.
 
 Sorted alphabetically.
 
+## adb setup for tasker
+
+``adb shell pm grant net.dinglisch.android.taskerm android.permission.WRITE_SECURE_SETTINGS && adb shell pm grant net.dinglisch.android.taskerm android.permission.DUMP``
+
 ## docker copy files from current directory to a volume
 
 ``docker run --rm -v $PWD:/source -v <VOLUME>:/dest -w /source alpine cp -r * /dest``
@@ -21,3 +25,7 @@ Sorted alphabetically.
 ## rsync with ssh on custom port
 
 ``rsync -e 'ssh -p <PORT>' -ErUPth <REMOTE>:<REMOTE_DIR> <LOCAL_DIR>``
+
+## scrcpy connect remotely and not crash the connection
+
+``scrcpy --max-size=1560 --max-fps=25 --no-audio --tcpip=<MOBILE_IP>:<ADB_PORT>``

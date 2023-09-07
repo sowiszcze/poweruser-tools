@@ -41,7 +41,7 @@
           "properties": {
             "folder_icon": "\uf115",
             "folder_separator_icon": " \ue0b1 ",
-            "home_icon": "\uf7db",
+            "home_icon": "\udb84\udcb5",
             "style": "agnoster"
           }
         },
@@ -98,7 +98,7 @@
           "background_templates": [
             "{{ if .Error }}#812e2e{{ end }}"
           ],
-          "template": " {{ if .Error }}\ufb8a {{ .Meaning }}{{ else }}\uf004{{ end }} ",
+          "template": " {{ if .Error }}\u2620 {{ .Meaning }}{{ else }}\uf004{{ end }} ",
           "properties": {
             "always_enabled": true
           }

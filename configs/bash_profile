@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# set (and export some of them) some flags
+# flag set to true if this is a remote (ssh) connection
+IS_REMOTE=$([ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ] || [ -n "$SSH_CONNECTION" ])
+export IS_REMOTE
+# flag set to true if remote session supports oh-my-posh
+REM_SUP_OMP=$([[ ":$REMOTE_CAPABILITIES:" == *":omp:"* ]])
+# flag set to true when shell allows oh-my-posh theming
+ENABLE_OMP=$([ ! "$IS_REMOTE" ] || $IS_REMOTE && $REM_SUP_OMP)
+
+# set PATH so it includes homebrew's bin if it exists
+if [ -d "/home/linuxbrew/.linuxbrew/bin" ] ; then
+    PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
+fi
+
+# enable oh-my-posh theming if allowed and possible
+if $ENABLE_OMP && command -v oh-my-posh &> /dev/null && [ -f "$MISCBOX_PATH/configs/theme.omp.json" ] ; then
+    eval "$(oh-my-posh init bash --config $MISCBOX_PATH/configs/theme.omp.json)"
+fi

@@ -1,0 +1,2 @@
+# Set what capabilities this shell holds
+SetEnv REMOTE_CAPABILITIES="omp"

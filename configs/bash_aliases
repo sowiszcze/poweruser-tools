@@ -1,0 +1,2 @@
+alias suno='sudo nano'
+alias ngreload='sudo nginx -t && sudo systemctl reload nginx.service'

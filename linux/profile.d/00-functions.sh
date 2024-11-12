@@ -29,6 +29,10 @@ envunload() {
 
 compose-latest() {
   COMPOSE_FILE=""
+  COMPOSE_DEFAULT_NAMES="compose docker-compose"
+  COMPOSE_DEFAULT_EXTENSIONS="yaml yml"
+  # read on default Compose file paths at
+  # https://docs.docker.com/compose/intro/compose-application-model/#the-compose-file
 
   if [ $# -gt 1 ]; then
     echoerr "Unsupported number of arguments: $#"
@@ -39,17 +43,24 @@ compose-latest() {
       echoerr "Compose file $COMPOSE_FILE does not exist"
       return 2
     fi
-  elif test -f "compose.yaml"; then
-    COMPOSE_FILE="compose.yaml"
-  elif test -f "compose.yml"; then
-    COMPOSE_FILE="compose.yml"
   else
-    echoerr "Compose file missing"
-    return 2
+    for NAME in $COMPOSE_DEFAULT_NAMES
+    do
+      for EXTENSION in $COMPOSE_DEFAULT_EXTENSIONS
+      do
+        if test -f "$NAME.$EXTENSION"; then
+          COMPOSE_FILE="$NAME.$EXTENSION"
+        fi
+      done
+    done
+    if [ ${#COMPOSE_FILE} -eq 0 ]; then
+      echoerr "Compose file missing"
+      return 2
+    fi
   fi
 
-  COMPOSE_FILE="$(realpath $COMPOSE_FILE)"
-  BASE_DIR="$(dirname $COMPOSE_FILE)"
+  COMPOSE_FILE="$(realpath "$COMPOSE_FILE")"
+  BASE_DIR="$(dirname "$COMPOSE_FILE")"
 
   ENV_PRELOADED=$(! [ "$MACHINE_DOMAIN" = "" ]; echo $?)
   if [ $ENV_PRELOADED -ne 0 ]; then

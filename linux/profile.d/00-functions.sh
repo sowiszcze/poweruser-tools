@@ -131,3 +131,19 @@ compose-latest() {
   echo "Deployment finished"
   return 0
 }
+
+archive() {
+  if test -f "$1" -o -d "$1"; then
+    echo "Archiving $1"
+    tar --create --remove-files --preserve-permissions --auto-compress --file="$1.tar.bz2" "$1"
+    if [ $? -ne 0 ]; then
+      echoerr "Could not complete the operation. Please check logs for more information"
+      return 2
+    fi
+    echo "Created archive as $1.tar.bz2"
+    return 0
+  else
+    echoerr "$1 is neither a file nor a directory"
+    return 1
+  fi
+}

@@ -59,7 +59,7 @@ compose-latest() {
     fi
   fi
 
-  COMPOSE_FILE="$(realpath "$COMPOSE_FILE")"
+  COMPOSE_FILE="$(realpath -s -z "$COMPOSE_FILE")"
   BASE_DIR="$(dirname "$COMPOSE_FILE")"
 
   ENV_PRELOADED=$(! [ "$MACHINE_DOMAIN" = "" ]; echo $?)
